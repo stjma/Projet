@@ -1,0 +1,128 @@
+﻿@model Projet.Models.Patient
+
+
+    @using (Html.BeginForm())
+    {
+        <div class="panel panel-primary">
+            @Html.AntiForgeryToken()
+            <div class="panel-heading">
+                <h5><strong>@Model.Prenom_Patient @Model.Nom_Patient</strong></h5>
+            </div>
+            <div class="panel-body">
+                <p>
+                   Date de Naissance : @Model.DateNaissance_Patient<br />
+                NAS : @Model.NAS_Patient<br />
+                Date de Transplant : @Model.Date_Transplant_Patient<br />
+                Maladie original : @Model.Maladie_Original_Patient
+                </p>
+                <hr />
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Code_Patient)
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Allergie_Patient, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Allergie_Patient, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Allergie_Patient, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Coter_Transplant_Patient, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Coter_Transplant_Patient, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Coter_Transplant_Patient, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ABV_Patient, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ABV_Patient, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ABV_Patient, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Anergy_Patient, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Anergy_Patient, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Anergy_Patient, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PPD_Patient, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.PPD_Patient)
+                                @Html.ValidationMessageFor(model => model.PPD_Patient, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.HbsAg_Patient, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.HbsAg_Patient)
+                                @Html.ValidationMessageFor(model => model.HbsAg_Patient, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CMV_Patient, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.CMV_Patient)
+                                @Html.ValidationMessageFor(model => model.CMV_Patient, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Transfusion_Patient, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Transfusion_Patient, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Transfusion_Patient, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.VV_ByPass_Patient, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.VV_ByPass_Patient)
+                                @Html.ValidationMessageFor(model => model.VV_ByPass_Patient, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Antifib_Lytics_Patient, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.Antifib_Lytics_Patient)
+                                @Html.ValidationMessageFor(model => model.Antifib_Lytics_Patient, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Modifier" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+            <div>
+                @Ajax.ActionLink("Retour à son dossier", "AfficherPatient", new { codeP = Model.Code_Patient }, new AjaxOptions() { UpdateTargetId = "partial", InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-primary" })
+            </div>
+     
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

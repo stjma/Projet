@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Projet.Models.Tests>
+<div id="test">
+    <input class="search" placeholder="Search" />
+
+    <table class="table table-striped">
+        <tbody class="list">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nom_test)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Categorie.Nom_Categorie)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="name">
+                        @Html.DisplayFor(modelItem => item.Nom_test)
+                    </td>
+                    <td class="categorie">
+                        @Html.DisplayFor(modelItem => item.Categorie.Nom_Categorie)
+                    </td>
+                    <td>
+                        @Ajax.ActionLink("Modifier le Test", "ModifierTest", new { codeT = item.Code_Test }, new AjaxOptions() { UpdateTargetId = "partial", InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-warning" })
+                        @Html.ActionLink("Supprimer le Test", "SupprimerTest", new { codeT = item.Code_Test }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p>
+        @Ajax.ActionLink("Ajouter un nouveau Test", "AjouterTest", null, new AjaxOptions() { UpdateTargetId = "partial", InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-success" })
+    </p>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+
+</div>
+
+<script type="text/javascript">
+    var options = {
+        valueNames: ['name', 'categorie']
+    };
+    var patients = new List('test', options);
+</script>

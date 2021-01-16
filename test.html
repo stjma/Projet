@@ -1,0 +1,18 @@
+<script>
+var person = {
+	firstName: "John",
+	lastName : "Doe",
+	id		 : 5565,
+	fullName : function() {
+		return this.firstName + " " + this.lastName;
+	}
+};
+
+function create(){
+	document.getElementById("p").innerHTML = person.fullName();
+}
+
+</script>
+
+<input type="button" value="Create person" onclick="create()"/>
+<p id="p" />

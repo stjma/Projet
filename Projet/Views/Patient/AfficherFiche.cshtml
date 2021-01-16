@@ -1,0 +1,62 @@
+﻿@model Projet.Models.Patient
+@using Projet.Models;
+@using Projet.Controllers;
+
+@{
+    DBGroupe2Entities dbContext = new DBGroupe2Entities();
+    var patient = dbContext.Patient.ToList().FirstOrDefault(p => p.Code_Patient == Model.Code_Patient);
+    var testsPatient = dbContext.Tests_Patient.ToList().FirstOrDefault(t => t.Code_Patient == patient.Code_Patient);
+    var dernierTest = new Tests_Patient();
+    //Faire une for each pour trouver tous les tests du patient, tables: Patient, Test_Patient, Test, Categorie
+    //Afficher tous les test qu'un patient a
+    List<Tests_Patient> listeTests = dbContext.Tests_Patient.ToList().FindAll(x => x.Code_Patient == Model.Code_Patient);
+    <h2>Resultat pour: @patient.Nom_Patient @patient.Prenom_Patient</h2>
+    <nav>
+        ABV: @patient.ABV_Patient
+        Allergie : @patient.Allergie_Patient
+        <button class="btn btn-primary">Modifier le dossier du patient</button>
+    </nav>
+
+    foreach (Tests_Patient tp in listeTests)
+    {
+        if (tp.Code_Test != dernierTest.Code_Test)
+        {
+            var test = dbContext.Tests.ToList().FindAll(t => t.Code_Test == tp.Code_Test);
+            foreach (Tests t in test)
+            {
+                var categorie = dbContext.Categorie.ToList().FindAll(c => c.Code_Categorie == t.Code_Categorie);
+                <div class="panel panel-primary col-sm-5">
+                    <div class="panel-heading"><h2>@categorie.Find(c => c.Code_Categorie == t.Code_Categorie).Nom_Categorie</h2></div>
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                                <th>Nom du test </th>
+                                <th>Resultat</th>
+                                <th>Date</th>
+                            </thead>
+                            <tbody>
+                                @for (int i = 1; i <= listeTests.Count(x => x.Code_Test == t.Code_Test); i++)
+                                {
+                                    <tr>
+                                        <td>@t.Nom_test</td>
+                                        <td>@tp.Resultat</td>
+                                        <td>@tp.Date_test </td>
+                                    </tr>
+                                    if (i == listeTests.Count(x => x.Code_Test == t.Code_Test))
+                                    {
+                                        <td><button type="button">+</button></td>
+                                    }
+                                } 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            }
+            dernierTest = tp;
+        }else { break; }
+
+        //S'assurer de grouper les resultats par categorie (Faire un foreach de categorie?)
+        //creer un panel avec un padding et qui sont inline
+    }
+}

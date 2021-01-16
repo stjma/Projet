@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="24498a3f055f474db3c86e19b7579108" Name="Diagram1" ZoomLevel="80">
+        <EntityTypeShape EntityType="DBGroupe2Model.Categorie" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBGroupe2Model.Donneur" Width="1.5" PointX="7.75" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBGroupe2Model.Patient" Width="1.5" PointX="5.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBGroupe2Model.Role_User" Width="1.5" PointX="3.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBGroupe2Model.sysdiagrams" Width="1.5" PointX="7.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBGroupe2Model.Tests" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBGroupe2Model.Tests_Patient" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBGroupe2Model.Transplantation" Width="1.5" PointX="10" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBGroupe2Model.Utilisateur" Width="1.5" PointX="6" PointY="8.625" IsExpanded="true" />
+        <AssociationConnector Association="DBGroupe2Model.fk_Test_CodeCategorie" ManuallyRouted="false" />
+        <AssociationConnector Association="DBGroupe2Model.fk_Donneur_CodePatient" ManuallyRouted="false" />
+        <AssociationConnector Association="DBGroupe2Model.fk_Transplantation_CodeDnneur" ManuallyRouted="false" />
+        <AssociationConnector Association="DBGroupe2Model.fk_TestPatient_CodePatient" ManuallyRouted="false" />
+        <AssociationConnector Association="DBGroupe2Model.fk_Transplantation_CodePatient" ManuallyRouted="false" />
+        <AssociationConnector Association="DBGroupe2Model.fk_Utilisateur_CodeRole" ManuallyRouted="false" />
+        <AssociationConnector Association="DBGroupe2Model.fk_TestPatient_CodeTest" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

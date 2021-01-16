@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Projet.Models.Utilisateur>
+<div id="test">
+    <input class="search" placeholder="Search" />
+
+    <table class="table table-striped">
+        <tbody class="list">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Prenom_U)
+                    @Html.DisplayNameFor(model => model.Nom_U)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nom_Utilisateur_U)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date_U)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email_U)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Role_User.Nom_Role)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="name">
+                        @Html.DisplayFor(modelItem => item.Prenom_U)
+                        @Html.DisplayFor(modelItem => item.Nom_U)
+                    </td>
+                    <td class="utilisateur">
+                        @Html.DisplayFor(modelItem => item.Nom_Utilisateur_U)
+                    </td>
+                    <td class="date">
+                        @Html.DisplayFor(modelItem => item.Date_U)
+                    </td>
+                    <td class="email">
+                        @Html.DisplayFor(modelItem => item.Email_U)
+                    </td>
+                    <td class="role"> 
+                        @Html.DisplayFor(modelItem => item.Role_User.Nom_Role)
+                    </td>
+                    <td>
+                        @Ajax.ActionLink("Modifier", "AfficherUser", "Administration", new { nomUser = item.Nom_Utilisateur_U }, new AjaxOptions() { UpdateTargetId = "partial", InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-warning" })
+                        @Html.ActionLink("Supprimer l'utilisateur", "SupprimeUser", new { codeU = item.Code_U }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+
+</div>
+
+<script type="text/javascript">
+    var options = {
+        valueNames: ['name', 'utilisateur', 'date', 'email', 'role' ]
+    };
+    var patients = new List('test', options);
+</script>

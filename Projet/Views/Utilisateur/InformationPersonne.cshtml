@@ -1,0 +1,43 @@
+﻿@model Projet.Models.Utilisateur
+
+@{
+    ViewBag.Title = "Mon Compte";
+}
+
+<dl class="dl-horizontal">
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Nom_Utilisateur_U)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Nom_Utilisateur_U)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Prenom_U)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Prenom_U)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Nom_U)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Nom_U)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Email_U)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Email_U)
+    </dd>
+
+</dl>
+
+<a>insert link to edit/save entries</a>

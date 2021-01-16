@@ -1,0 +1,639 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBGroupe2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categorie">
+          <Key>
+            <PropertyRef Name="Code_Categorie" />
+          </Key>
+          <Property Name="Code_Categorie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nom_Categorie" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Donneur">
+          <Key>
+            <PropertyRef Name="Code_Do" />
+          </Key>
+          <Property Name="Code_Do" Type="int" Nullable="false" />
+          <Property Name="Vivant_Do" Type="bit" />
+          <Property Name="ADN_Do" Type="varchar" MaxLength="50" />
+          <Property Name="Allergie_Do" Type="varchar" MaxLength="50" />
+          <Property Name="Raison_Deces_Do" Type="varchar" MaxLength="50" />
+          <Property Name="Virus" Type="varchar" MaxLength="50" />
+          <Property Name="Groupe_Sanguin_Do" Type="varchar" MaxLength="50" />
+          <Property Name="Date_Transplant_Do" Type="datetime" />
+          <Property Name="Code_Patient" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="Code_Patient" />
+          </Key>
+          <Property Name="Code_Patient" Type="int" Nullable="false" />
+          <Property Name="Nom_Patient" Type="varchar" MaxLength="50" />
+          <Property Name="Prenom_Patient" Type="varchar" MaxLength="50" />
+          <Property Name="NAS_Patient" Type="varchar" MaxLength="50" />
+          <Property Name="DateNaissance_Patient" Type="datetime" />
+          <Property Name="Allergie_Patient" Type="varchar" MaxLength="50" />
+          <Property Name="Maladie_Original_Patient" Type="varchar" MaxLength="50" />
+          <Property Name="Date_Transplant_Patient" Type="datetime" />
+          <Property Name="Coter_Transplant_Patient" Type="varchar" MaxLength="50" />
+          <Property Name="ABV_Patient" Type="int" />
+          <Property Name="Anergy_Patient" Type="varchar" MaxLength="50" />
+          <Property Name="PPD_Patient" Type="bit" />
+          <Property Name="HbsAg_Patient" Type="bit" />
+          <Property Name="CMV_Patient" Type="bit" />
+          <Property Name="Transfusion_Patient" Type="varchar" MaxLength="50" />
+          <Property Name="VV_ByPass_Patient" Type="bit" />
+          <Property Name="Antifib_Lytics_Patient" Type="bit" />
+        </EntityType>
+        <EntityType Name="Role_User">
+          <Key>
+            <PropertyRef Name="Code_Role" />
+          </Key>
+          <Property Name="Code_Role" Type="int" Nullable="false" />
+          <Property Name="Nom_Role" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tests">
+          <Key>
+            <PropertyRef Name="Code_Test" />
+          </Key>
+          <Property Name="Code_Test" Type="int" Nullable="false" />
+          <Property Name="Nom_test" Type="varchar" MaxLength="50" />
+          <Property Name="Code_Categorie" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tests Patient">
+          <Key>
+            <PropertyRef Name="Code_Patient_TP" />
+            <PropertyRef Name="Code_Test_TP" />
+          </Key>
+          <Property Name="Code_Patient_TP" Type="int" Nullable="false" />
+          <Property Name="Code_Test_TP" Type="int" Nullable="false" />
+          <Property Name="Resultat" Type="varchar" MaxLength="50" />
+          <Property Name="Date_test" Type="datetime" />
+          <Property Name="Code_Patient" Type="int" Nullable="false" />
+          <Property Name="Code_Test" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transplantation">
+          <Key>
+            <PropertyRef Name="Code_Transplant" />
+          </Key>
+          <Property Name="Code_Transplant" Type="int" Nullable="false" />
+          <Property Name="Nom_Medecin" Type="varchar" MaxLength="50" />
+          <Property Name="Code_Patient" Type="int" Nullable="false" />
+          <Property Name="Code_Donneur" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Utilisateur">
+          <Key>
+            <PropertyRef Name="Code_U" />
+          </Key>
+          <Property Name="Code_U" Type="int" Nullable="false" />
+          <Property Name="Nom_U" Type="varchar" MaxLength="50" />
+          <Property Name="Mdp_U" Type="varchar" MaxLength="200" />
+          <Property Name="Nom_Utilisateur_U" Type="varchar" MaxLength="50" />
+          <Property Name="Prenom_U" Type="varchar" MaxLength="50" />
+          <Property Name="Code_Role" Type="int" Nullable="false" />
+          <Property Name="Date_U" Type="datetime" />
+          <Property Name="Email_U" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="fk_Donneur_CodePatient">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Donneur" Type="Self.Donneur" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Code_Patient" />
+            </Principal>
+            <Dependent Role="Donneur">
+              <PropertyRef Name="Code_Patient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Test_CodeCategorie">
+          <End Role="Categorie" Type="Self.Categorie" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tests" Type="Self.Tests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorie">
+              <PropertyRef Name="Code_Categorie" />
+            </Principal>
+            <Dependent Role="Tests">
+              <PropertyRef Name="Code_Categorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TestPatient_CodePatient">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tests Patient" Type="Self.Tests Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Code_Patient" />
+            </Principal>
+            <Dependent Role="Tests Patient">
+              <PropertyRef Name="Code_Patient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TestPatient_CodeTest">
+          <End Role="Tests" Type="Self.Tests" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tests Patient" Type="Self.Tests Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tests">
+              <PropertyRef Name="Code_Test" />
+            </Principal>
+            <Dependent Role="Tests Patient">
+              <PropertyRef Name="Code_Test" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Transplantation_CodeDnneur">
+          <End Role="Donneur" Type="Self.Donneur" Multiplicity="1" />
+          <End Role="Transplantation" Type="Self.Transplantation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Donneur">
+              <PropertyRef Name="Code_Do" />
+            </Principal>
+            <Dependent Role="Transplantation">
+              <PropertyRef Name="Code_Donneur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Transplantation_CodePatient">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Transplantation" Type="Self.Transplantation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Code_Patient" />
+            </Principal>
+            <Dependent Role="Transplantation">
+              <PropertyRef Name="Code_Patient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Utilisateur_CodeRole">
+          <End Role="Role_User" Type="Self.Role_User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role_User">
+              <PropertyRef Name="Code_Role" />
+            </Principal>
+            <Dependent Role="Utilisateur">
+              <PropertyRef Name="Code_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBGroupe2ModelStoreContainer">
+          <EntitySet Name="Categorie" EntityType="Self.Categorie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Donneur" EntityType="Self.Donneur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role_User" EntityType="Self.Role_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tests" EntityType="Self.Tests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tests Patient" EntityType="Self.Tests Patient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transplantation" EntityType="Self.Transplantation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Utilisateur" EntityType="Self.Utilisateur" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_Donneur_CodePatient" Association="Self.fk_Donneur_CodePatient">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="Donneur" EntitySet="Donneur" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Test_CodeCategorie" Association="Self.fk_Test_CodeCategorie">
+            <End Role="Categorie" EntitySet="Categorie" />
+            <End Role="Tests" EntitySet="Tests" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TestPatient_CodePatient" Association="Self.fk_TestPatient_CodePatient">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="Tests Patient" EntitySet="Tests Patient" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TestPatient_CodeTest" Association="Self.fk_TestPatient_CodeTest">
+            <End Role="Tests" EntitySet="Tests" />
+            <End Role="Tests Patient" EntitySet="Tests Patient" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Transplantation_CodeDnneur" Association="Self.fk_Transplantation_CodeDnneur">
+            <End Role="Donneur" EntitySet="Donneur" />
+            <End Role="Transplantation" EntitySet="Transplantation" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Transplantation_CodePatient" Association="Self.fk_Transplantation_CodePatient">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="Transplantation" EntitySet="Transplantation" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Utilisateur_CodeRole" Association="Self.fk_Utilisateur_CodeRole">
+            <End Role="Role_User" EntitySet="Role_User" />
+            <End Role="Utilisateur" EntitySet="Utilisateur" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBGroupe2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Categorie">
+          <Key>
+            <PropertyRef Name="Code_Categorie" />
+          </Key>
+          <Property Name="Code_Categorie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom_Categorie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tests" Relationship="Self.fk_Test_CodeCategorie" FromRole="Categorie" ToRole="Tests" />
+        </EntityType>
+        <EntityType Name="Donneur">
+          <Key>
+            <PropertyRef Name="Code_Do" />
+          </Key>
+          <Property Name="Code_Do" Type="Int32" Nullable="false" />
+          <Property Name="Vivant_Do" Type="Boolean" />
+          <Property Name="ADN_Do" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Allergie_Do" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Raison_Deces_Do" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Virus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Groupe_Sanguin_Do" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Date_Transplant_Do" Type="DateTime" Precision="3" />
+          <Property Name="Code_Patient" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Patient" Relationship="Self.fk_Donneur_CodePatient" FromRole="Donneur" ToRole="Patient" />
+          <NavigationProperty Name="Transplantation" Relationship="Self.fk_Transplantation_CodeDnneur" FromRole="Donneur" ToRole="Transplantation" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="Code_Patient" />
+          </Key>
+          <Property Name="Code_Patient" Type="Int32" Nullable="false" />
+          <Property Name="Nom_Patient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Prenom_Patient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NAS_Patient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateNaissance_Patient" Type="DateTime" Precision="3" />
+          <Property Name="Allergie_Patient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Maladie_Original_Patient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Date_Transplant_Patient" Type="DateTime" Precision="3" />
+          <Property Name="Coter_Transplant_Patient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ABV_Patient" Type="Int32" />
+          <Property Name="Anergy_Patient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PPD_Patient" Type="Boolean" />
+          <Property Name="HbsAg_Patient" Type="Boolean" />
+          <Property Name="CMV_Patient" Type="Boolean" />
+          <Property Name="Transfusion_Patient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VV_ByPass_Patient" Type="Boolean" />
+          <Property Name="Antifib_Lytics_Patient" Type="Boolean" />
+          <NavigationProperty Name="Donneur" Relationship="Self.fk_Donneur_CodePatient" FromRole="Patient" ToRole="Donneur" />
+          <NavigationProperty Name="Tests_Patient" Relationship="Self.fk_TestPatient_CodePatient" FromRole="Patient" ToRole="Tests_Patient" />
+          <NavigationProperty Name="Transplantation" Relationship="Self.fk_Transplantation_CodePatient" FromRole="Patient" ToRole="Transplantation" />
+        </EntityType>
+        <EntityType Name="Role_User">
+          <Key>
+            <PropertyRef Name="Code_Role" />
+          </Key>
+          <Property Name="Code_Role" Type="Int32" Nullable="false" />
+          <Property Name="Nom_Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Utilisateur" Relationship="Self.fk_Utilisateur_CodeRole" FromRole="Role_User" ToRole="Utilisateur" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tests">
+          <Key>
+            <PropertyRef Name="Code_Test" />
+          </Key>
+          <Property Name="Code_Test" Type="Int32" Nullable="false" />
+          <Property Name="Nom_test" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Code_Categorie" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Categorie" Relationship="Self.fk_Test_CodeCategorie" FromRole="Tests" ToRole="Categorie" />
+          <NavigationProperty Name="Tests_Patient" Relationship="Self.fk_TestPatient_CodeTest" FromRole="Tests" ToRole="Tests_Patient" />
+        </EntityType>
+        <EntityType Name="Tests_Patient">
+          <Key>
+            <PropertyRef Name="Code_Patient_TP" />
+            <PropertyRef Name="Code_Test_TP" />
+          </Key>
+          <Property Name="Code_Patient_TP" Type="Int32" Nullable="false" />
+          <Property Name="Code_Test_TP" Type="Int32" Nullable="false" />
+          <Property Name="Resultat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Date_test" Type="DateTime" Precision="3" />
+          <Property Name="Code_Patient" Type="Int32" Nullable="false" />
+          <Property Name="Code_Test" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Patient" Relationship="Self.fk_TestPatient_CodePatient" FromRole="Tests_Patient" ToRole="Patient" />
+          <NavigationProperty Name="Tests" Relationship="Self.fk_TestPatient_CodeTest" FromRole="Tests_Patient" ToRole="Tests" />
+        </EntityType>
+        <EntityType Name="Transplantation">
+          <Key>
+            <PropertyRef Name="Code_Transplant" />
+          </Key>
+          <Property Name="Code_Transplant" Type="Int32" Nullable="false" />
+          <Property Name="Nom_Medecin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Code_Patient" Type="Int32" Nullable="false" />
+          <Property Name="Code_Donneur" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Donneur" Relationship="Self.fk_Transplantation_CodeDnneur" FromRole="Transplantation" ToRole="Donneur" />
+          <NavigationProperty Name="Patient" Relationship="Self.fk_Transplantation_CodePatient" FromRole="Transplantation" ToRole="Patient" />
+        </EntityType>
+        <EntityType Name="Utilisateur">
+          <Key>
+            <PropertyRef Name="Code_U" />
+          </Key>
+          <Property Name="Code_U" Type="Int32" Nullable="false" />
+          <Property Name="Nom_U" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nom_Utilisateur_U" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Prenom_U" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Code_Role" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role_User" Relationship="Self.fk_Utilisateur_CodeRole" FromRole="Utilisateur" ToRole="Role_User" />
+          <Property Name="Mdp_U" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Date_U" Type="DateTime" Precision="3" />
+          <Property Name="Email_U" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="fk_Test_CodeCategorie">
+          <End Role="Categorie" Type="Self.Categorie" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tests" Type="Self.Tests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorie">
+              <PropertyRef Name="Code_Categorie" />
+            </Principal>
+            <Dependent Role="Tests">
+              <PropertyRef Name="Code_Categorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Donneur_CodePatient">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Donneur" Type="Self.Donneur" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Code_Patient" />
+            </Principal>
+            <Dependent Role="Donneur">
+              <PropertyRef Name="Code_Patient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Transplantation_CodeDnneur">
+          <End Role="Donneur" Type="Self.Donneur" Multiplicity="1" />
+          <End Role="Transplantation" Type="Self.Transplantation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Donneur">
+              <PropertyRef Name="Code_Do" />
+            </Principal>
+            <Dependent Role="Transplantation">
+              <PropertyRef Name="Code_Donneur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TestPatient_CodePatient">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tests_Patient" Type="Self.Tests_Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Code_Patient" />
+            </Principal>
+            <Dependent Role="Tests_Patient">
+              <PropertyRef Name="Code_Patient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Transplantation_CodePatient">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Transplantation" Type="Self.Transplantation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Code_Patient" />
+            </Principal>
+            <Dependent Role="Transplantation">
+              <PropertyRef Name="Code_Patient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Utilisateur_CodeRole">
+          <End Role="Role_User" Type="Self.Role_User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role_User">
+              <PropertyRef Name="Code_Role" />
+            </Principal>
+            <Dependent Role="Utilisateur">
+              <PropertyRef Name="Code_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TestPatient_CodeTest">
+          <End Role="Tests" Type="Self.Tests" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tests_Patient" Type="Self.Tests_Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tests">
+              <PropertyRef Name="Code_Test" />
+            </Principal>
+            <Dependent Role="Tests_Patient">
+              <PropertyRef Name="Code_Test" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBGroupe2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categorie" EntityType="Self.Categorie" />
+          <EntitySet Name="Donneur" EntityType="Self.Donneur" />
+          <EntitySet Name="Patient" EntityType="Self.Patient" />
+          <EntitySet Name="Role_User" EntityType="Self.Role_User" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Tests" EntityType="Self.Tests" />
+          <EntitySet Name="Tests_Patient" EntityType="Self.Tests_Patient" />
+          <EntitySet Name="Transplantation" EntityType="Self.Transplantation" />
+          <EntitySet Name="Utilisateur" EntityType="Self.Utilisateur" />
+          <AssociationSet Name="fk_Test_CodeCategorie" Association="Self.fk_Test_CodeCategorie">
+            <End Role="Categorie" EntitySet="Categorie" />
+            <End Role="Tests" EntitySet="Tests" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Donneur_CodePatient" Association="Self.fk_Donneur_CodePatient">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="Donneur" EntitySet="Donneur" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Transplantation_CodeDnneur" Association="Self.fk_Transplantation_CodeDnneur">
+            <End Role="Donneur" EntitySet="Donneur" />
+            <End Role="Transplantation" EntitySet="Transplantation" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TestPatient_CodePatient" Association="Self.fk_TestPatient_CodePatient">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="Tests_Patient" EntitySet="Tests_Patient" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Transplantation_CodePatient" Association="Self.fk_Transplantation_CodePatient">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="Transplantation" EntitySet="Transplantation" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Utilisateur_CodeRole" Association="Self.fk_Utilisateur_CodeRole">
+            <End Role="Role_User" EntitySet="Role_User" />
+            <End Role="Utilisateur" EntitySet="Utilisateur" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TestPatient_CodeTest" Association="Self.fk_TestPatient_CodeTest">
+            <End Role="Tests" EntitySet="Tests" />
+            <End Role="Tests_Patient" EntitySet="Tests_Patient" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBGroupe2ModelStoreContainer" CdmEntityContainer="DBGroupe2Entities">
+          <EntitySetMapping Name="Categorie">
+            <EntityTypeMapping TypeName="DBGroupe2Model.Categorie">
+              <MappingFragment StoreEntitySet="Categorie">
+                <ScalarProperty Name="Code_Categorie" ColumnName="Code_Categorie" />
+                <ScalarProperty Name="Nom_Categorie" ColumnName="Nom_Categorie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Donneur">
+            <EntityTypeMapping TypeName="DBGroupe2Model.Donneur">
+              <MappingFragment StoreEntitySet="Donneur">
+                <ScalarProperty Name="Code_Do" ColumnName="Code_Do" />
+                <ScalarProperty Name="Vivant_Do" ColumnName="Vivant_Do" />
+                <ScalarProperty Name="ADN_Do" ColumnName="ADN_Do" />
+                <ScalarProperty Name="Allergie_Do" ColumnName="Allergie_Do" />
+                <ScalarProperty Name="Raison_Deces_Do" ColumnName="Raison_Deces_Do" />
+                <ScalarProperty Name="Virus" ColumnName="Virus" />
+                <ScalarProperty Name="Groupe_Sanguin_Do" ColumnName="Groupe_Sanguin_Do" />
+                <ScalarProperty Name="Date_Transplant_Do" ColumnName="Date_Transplant_Do" />
+                <ScalarProperty Name="Code_Patient" ColumnName="Code_Patient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patient">
+            <EntityTypeMapping TypeName="DBGroupe2Model.Patient">
+              <MappingFragment StoreEntitySet="Patient">
+                <ScalarProperty Name="Code_Patient" ColumnName="Code_Patient" />
+                <ScalarProperty Name="Nom_Patient" ColumnName="Nom_Patient" />
+                <ScalarProperty Name="Prenom_Patient" ColumnName="Prenom_Patient" />
+                <ScalarProperty Name="NAS_Patient" ColumnName="NAS_Patient" />
+                <ScalarProperty Name="DateNaissance_Patient" ColumnName="DateNaissance_Patient" />
+                <ScalarProperty Name="Allergie_Patient" ColumnName="Allergie_Patient" />
+                <ScalarProperty Name="Maladie_Original_Patient" ColumnName="Maladie_Original_Patient" />
+                <ScalarProperty Name="Date_Transplant_Patient" ColumnName="Date_Transplant_Patient" />
+                <ScalarProperty Name="Coter_Transplant_Patient" ColumnName="Coter_Transplant_Patient" />
+                <ScalarProperty Name="ABV_Patient" ColumnName="ABV_Patient" />
+                <ScalarProperty Name="Anergy_Patient" ColumnName="Anergy_Patient" />
+                <ScalarProperty Name="PPD_Patient" ColumnName="PPD_Patient" />
+                <ScalarProperty Name="HbsAg_Patient" ColumnName="HbsAg_Patient" />
+                <ScalarProperty Name="CMV_Patient" ColumnName="CMV_Patient" />
+                <ScalarProperty Name="Transfusion_Patient" ColumnName="Transfusion_Patient" />
+                <ScalarProperty Name="VV_ByPass_Patient" ColumnName="VV_ByPass_Patient" />
+                <ScalarProperty Name="Antifib_Lytics_Patient" ColumnName="Antifib_Lytics_Patient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role_User">
+            <EntityTypeMapping TypeName="DBGroupe2Model.Role_User">
+              <MappingFragment StoreEntitySet="Role_User">
+                <ScalarProperty Name="Code_Role" ColumnName="Code_Role" />
+                <ScalarProperty Name="Nom_Role" ColumnName="Nom_Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DBGroupe2Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tests">
+            <EntityTypeMapping TypeName="DBGroupe2Model.Tests">
+              <MappingFragment StoreEntitySet="Tests">
+                <ScalarProperty Name="Code_Test" ColumnName="Code_Test" />
+                <ScalarProperty Name="Nom_test" ColumnName="Nom_test" />
+                <ScalarProperty Name="Code_Categorie" ColumnName="Code_Categorie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tests_Patient">
+            <EntityTypeMapping TypeName="DBGroupe2Model.Tests_Patient">
+              <MappingFragment StoreEntitySet="Tests Patient">
+                <ScalarProperty Name="Code_Patient_TP" ColumnName="Code_Patient_TP" />
+                <ScalarProperty Name="Code_Test_TP" ColumnName="Code_Test_TP" />
+                <ScalarProperty Name="Resultat" ColumnName="Resultat" />
+                <ScalarProperty Name="Date_test" ColumnName="Date_test" />
+                <ScalarProperty Name="Code_Patient" ColumnName="Code_Patient" />
+                <ScalarProperty Name="Code_Test" ColumnName="Code_Test" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transplantation">
+            <EntityTypeMapping TypeName="DBGroupe2Model.Transplantation">
+              <MappingFragment StoreEntitySet="Transplantation">
+                <ScalarProperty Name="Code_Transplant" ColumnName="Code_Transplant" />
+                <ScalarProperty Name="Nom_Medecin" ColumnName="Nom_Medecin" />
+                <ScalarProperty Name="Code_Patient" ColumnName="Code_Patient" />
+                <ScalarProperty Name="Code_Donneur" ColumnName="Code_Donneur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Utilisateur">
+            <EntityTypeMapping TypeName="DBGroupe2Model.Utilisateur">
+              <MappingFragment StoreEntitySet="Utilisateur">
+                <ScalarProperty Name="Email_U" ColumnName="Email_U" />
+                <ScalarProperty Name="Date_U" ColumnName="Date_U" />
+                <ScalarProperty Name="Mdp_U" ColumnName="Mdp_U" />
+                <ScalarProperty Name="Code_U" ColumnName="Code_U" />
+                <ScalarProperty Name="Nom_U" ColumnName="Nom_U" />
+                <ScalarProperty Name="Nom_Utilisateur_U" ColumnName="Nom_Utilisateur_U" />
+                <ScalarProperty Name="Prenom_U" ColumnName="Prenom_U" />
+                <ScalarProperty Name="Code_Role" ColumnName="Code_Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

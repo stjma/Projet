@@ -1,0 +1,124 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil</title>
+    @RenderSection("css", required: false)
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
+
+    
+</head>
+<body>
+    
+    @{   
+
+        //TODO : Vérifier si une session a bien été créer
+        //Si elle n'a pas été créer on affiche la nav de base.
+        //Prendre le nom du role du user.
+        //Selon le nom de son role, on affiche la nav approprier
+        string[] nomRole = null;
+        //Si l'utilisateur n'est pas connecté, on lui donne la page d'acceuil de base.
+        if (!Request.IsAuthenticated)
+        {
+            <nav class="navbar navbar-fixed-top">
+                <div class="nav navbar">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="#">Hopital</a>
+                        </div>
+                        <ul class="nav navbar-nav" id="navbarAcceuil">
+                            <li class="active"><a href="Utilisateur/Index.cshtml">Acceuil</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>@Html.ActionLink("Inscription", "Inscription", "Utilisateur", null, new { @class = "btn btn-primary" })</li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        }
+        else
+        {
+            nomRole = Roles.GetRolesForUser(HttpContext.Current.User.Identity.Name);
+            //Si le role de l'utilisateur est Patient ou médecin, on lui permet de consulter des dossiers patients.
+            if (nomRole[0].Equals("Medecin") || nomRole[0].Equals("Utilisateur"))
+            {
+                <nav class="navbar navbar-fixed-top">
+                    <div class="nav navbar">
+                        <div class="container-fluid">
+                            <div class="navbar-header">
+                                <a class="navbar-brand" href="#">Hopital</a>
+                            </div>
+                            <ul class="nav navbar-nav" id="navbarAcceuil">
+
+                                <li class="active">@Html.ActionLink("Accueil", "Index", "Patient")</li>
+                                <li>@Html.ActionLink("Mon compte","MonCompte","Utilisateur",null,null)</li>
+                            </ul>
+                            @{ if (Request.IsAuthenticated) { 
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>@Html.ActionLink("Déconnexion","Deconnexion","Utilisateur",null,new {@class= "btn btn-primary glyphicon glyphicon-off"})</li>
+                            </ul>
+                                }
+                                else if (!Request.IsAuthenticated)
+                                {
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li>@Html.ActionLink("Connexion", "Index", "Utilisateur", null, new { @class = "btn btn-primary" })</li>
+                                    </ul>
+                                }
+                            }
+                        </div>
+                    </div>
+                </nav>
+                                }
+                                else //Si le role de l'utilisateur est SuperUser ou Administrateur, on lui ajoute les outils d'administration en plus.
+                                {
+                <nav class="navbar navbar-fixed-top">
+                    <div class="nav navbar">
+                        <div class="container-fluid">
+                            <div class="navbar-header">
+                                <a class="navbar-brand" href="#">Hopital</a>
+                            </div>
+                            <ul class="nav navbar-nav" id="navbarAcceuil">
+                                <li class="active">@Html.ActionLink("Accueil", "Index", "Patient")</li>
+                                <li>@Html.ActionLink("Mon Compte", "MonCompte", "Utilisateur")</li>
+                                <li>@Html.ActionLink("Administration","Index","Administration")</li>
+                            </ul>
+                            @{ if (Request.IsAuthenticated)
+                                {
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li><span class="glyphicon glyphicon-off"></span>@Html.ActionLink("Déconnexion", "Deconnexion", "Utilisateur", null, new { @class = "btn btn-primary" })</li>
+                                    </ul>
+                                }
+                                else if (!Request.IsAuthenticated)
+                                {
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li>@Html.ActionLink("Connexion", "Index", "Utilisateur", null, new { @class = "btn btn-primary" })</li>
+                                    </ul>
+                                }
+                            }
+                        </div>
+                    </div>
+                </nav>
+            }
+        }
+    <div class="container body-content">
+        @RenderBody()       
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <footer>
+        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>
+
+    }
+</body>
+</html>

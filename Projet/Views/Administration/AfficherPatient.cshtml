@@ -1,0 +1,29 @@
+﻿@model Projet.Models.Patient
+<hr />
+<div class="panel panel-primary">
+    <div class="panel-heading">@Html.DisplayFor(model => model.Prenom_Patient) @Html.DisplayFor(model => model.Nom_Patient) @Html.ActionLink("Archiver", "ArchiverPatient", new { codeP = Model.Code_Patient }, new { @class = "btn btn-warning pull-right", @id="btnArchive" })</div>
+    <div class="panel-body">
+        @Html.DisplayNameFor(model => model.NAS_Patient) : @Html.DisplayFor(model => model.NAS_Patient)<br />
+        @Html.DisplayNameFor(model => model.DateNaissance_Patient) : @Html.DisplayFor(model => model.DateNaissance_Patient)<br />
+        @Html.DisplayNameFor(model => model.Allergie_Patient) : @Html.DisplayFor(model => model.Allergie_Patient)<br />
+        @Html.DisplayNameFor(model => model.Maladie_Original_Patient) : @Html.DisplayFor(model => model.Maladie_Original_Patient)<br />
+        @Html.DisplayNameFor(model => model.Date_Transplant_Patient) : @Html.DisplayFor(model => model.Date_Transplant_Patient)<br />
+        @Html.DisplayNameFor(model => model.Coter_Transplant_Patient) : @Html.DisplayFor(model => model.Coter_Transplant_Patient)<br />
+        @Html.DisplayNameFor(model => model.ABV_Patient) : @Html.DisplayFor(model => model.ABV_Patient)<br />
+        @Html.DisplayNameFor(model => model.Anergy_Patient) : @Html.DisplayFor(model => model.Anergy_Patient)<br />
+        @Html.DisplayNameFor(model => model.PPD_Patient) :  @Html.DisplayFor(model => model.PPD_Patient)<br />
+        @Html.DisplayNameFor(model => model.HbsAg_Patient) : @Html.DisplayFor(model => model.HbsAg_Patient)<br />
+        @Html.DisplayNameFor(model => model.CMV_Patient) : @Html.DisplayFor(model => model.CMV_Patient)<br />
+        @Html.DisplayNameFor(model => model.Transfusion_Patient) : @Html.DisplayFor(model => model.Transfusion_Patient)<br />
+        @Html.DisplayNameFor(model => model.VV_ByPass_Patient) : @Html.DisplayFor(model => model.VV_ByPass_Patient)<br />
+        @Html.DisplayNameFor(model => model.Antifib_Lytics_Patient) : @Html.DisplayFor(model => model.Antifib_Lytics_Patient)
+    </div>
+    <div class="panel-footer">
+        @using (Html.BeginForm(FormMethod.Post))
+        {
+                @Html.ActionLink("Voir sa fiche", "AfficherFiche", "Patient", new { codeP = Model.Code_Patient }, new { @class = "btn btn-success btnG" })
+                @Ajax.ActionLink("Modifier ", "ModifierPatient", new { codeP = Model.Code_Patient }, new AjaxOptions() { UpdateTargetId = "partial", InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-warning btnG" })
+                @Html.ActionLink("Supprimer le Patient", "SupprimerPatient", new { codeP = Model.Code_Patient }, new { @class = "btn btn-danger btnG", @id = "supprimer", @onclick = "return false;" })
+        }
+    </div>
+</div>

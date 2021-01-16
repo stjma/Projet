@@ -1,0 +1,47 @@
+﻿@using PagedList.Mvc
+@using PagedList
+@section css{
+    @Styles.Render("~/Content/AdminCss.css")
+    }
+@{
+    Projet.Models.DBGroupe2Entities dbContext = new Projet.Models.DBGroupe2Entities();
+    ViewBag.Title = "Index";
+    Layout = "~/Views/PageParent.cshtml";
+    AjaxOptions ao = new AjaxOptions() { UpdateTargetId = "partial", InsertionMode = InsertionMode.Replace };
+}
+
+<h2>Index</h2>
+
+<div class="container">
+    @Ajax.ActionLink("Liste d'utilisateur","ListeUser",null,ao,new {@class="btn btn-primary"})
+    @Ajax.ActionLink("Ajouter un patient","AjouterPatient",null,ao,new {@class="btn btn-primary"})
+    @Ajax.ActionLink("Liste des patient", "AfficherPatients", null, ao, new { @class = "btn btn-primary" })
+    @Ajax.ActionLink("Liste des catégorie", "ListeCategorie", null,ao,new {@class="btn btn-primary"})
+    @Ajax.ActionLink("Liste des Tests","ListeTests",null,ao,new {@class="btn btn-primary"})
+</div>
+<div id="partial" class="container">
+            @{ 
+                if(ViewBag.View != null)
+                {
+                    switch ((string)ViewBag.View) {
+                        case "ListeCategorie":
+                            Html.RenderPartial((string)ViewBag.View, dbContext.Categorie);
+                            break;
+                        case "ListeUser":
+                            Html.RenderPartial((string)ViewBag.View, dbContext.Utilisateur);
+                            break;
+                        case "AfficherPatients":
+                            int? page = 1;
+                            Html.PagedListPager(dbContext.Patient.ToList().ToPagedList(page ?? 1, 10), pages => Url.Action((string)ViewBag.View,"Administration",new { page = page }),PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() {UpdateTargetId="partial", InsertionMode = InsertionMode.Replace}));
+                            break;
+                        case "ListeTests":
+                            Html.RenderPartial((string)ViewBag.View, dbContext.Tests);
+                            break;
+                    }
+
+                }
+              }
+</div>
+
+
+

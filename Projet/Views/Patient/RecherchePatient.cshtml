@@ -1,0 +1,72 @@
+﻿<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Recherche</div>
+            <div class="panel-body">
+                @Html.Label("Numéro client")
+                @Html.TextBox(name: "numeroCLient")
+                <button type="button">Rechercher</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8"></div>
+</div>
+
+<style>
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: white;
+    }
+
+    li {
+        float: left;
+    }
+
+        li a {
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+            li a:hover {
+                background-color: #111;
+            }
+</style>
+
+@model Projet.Models.Patient
+<ul>
+    <li>
+        <a class="active">
+            @Html.DisplayNameFor(model => model.Nom_Patient)
+            @Html.DisplayFor(model => model.Nom_Patient)
+        </a>
+    </li>
+    <li>
+        <a>
+            @Html.DisplayNameFor(model => model.Prenom_Patient)
+            @Html.DisplayFor(model => model.Prenom_Patient)
+        </a>
+    </li>
+    <li>
+        <a>
+            @Html.DisplayNameFor(model => model.NAS_Patient)
+            @Html.DisplayFor(model => model.NAS_Patient)
+        </a>
+    </li>
+
+
+    <li>
+        <a>
+            @Html.DisplayNameFor(model => model.DateNaissance_Patient)
+            @Html.DisplayFor(model => model.DateNaissance_Patient)
+        </a>
+    </li>
+</ul>
+
+
+

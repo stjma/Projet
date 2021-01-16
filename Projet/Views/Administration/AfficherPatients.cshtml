@@ -1,0 +1,61 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+
+
+@model IPagedList<Projet.Models.Patient>
+<div id="patient">
+    <input class="search" placeholder="Search" />
+  
+    <table class="table table-striped">
+        <!-- IMPORTANT, class="list" have to be at tbody -->
+        <tbody class="list">
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.First().Nom_Patient)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.First().Prenom_Patient)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.First().NAS_Patient)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => model.First().DateNaissance_Patient)
+                </td>
+                <th>
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+
+                <tr>
+
+                    <td class="name">@Html.DisplayFor(modelItem => item.Nom_Patient)</td>
+
+                    <td class="prenom">@Html.DisplayFor(modelItem => item.Prenom_Patient)</td>
+
+                    <td class="nas">@Html.DisplayFor(modelItem => item.NAS_Patient)</td>
+
+                    <td class="date">@Html.DisplayFor(modelItem => item.DateNaissance_Patient)</td>
+
+                    <td>
+                        @Ajax.ActionLink("Voir le dossier", "AfficherPatient", new { codeP = item.Code_Patient }, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "partial", InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-success" })
+                        @Html.ActionLink("Voir sa fiche", "AfficherFiche", "Patient", new { codeP = item.Code_Patient }, new { @class = "btn btn-primary" })
+                    </td>
+                </tr>
+
+            }
+
+        </tbody>
+    </table>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+
+</div>
+<script type="text/javascript">
+    var options = {
+        valueNames: ['name', 'prenom', 'nas', 'date']
+    };
+    var patients = new List('patient', options);
+</script>

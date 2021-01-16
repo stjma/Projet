@@ -1,0 +1,140 @@
+﻿@model Projet.Models.Patient
+
+<div>
+    <h4>Patient</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nom_Patient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nom_Patient)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prenom_Patient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prenom_Patient)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NAS_Patient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NAS_Patient)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateNaissance_Patient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateNaissance_Patient)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Allergie_Patient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Allergie_Patient)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Maladie_Original_Patient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Maladie_Original_Patient)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date_Transplant_Patient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date_Transplant_Patient)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Coter_Transplant_Patient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Coter_Transplant_Patient)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ABV_Patient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ABV_Patient)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Anergy_Patient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Anergy_Patient)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PPD_Patient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PPD_Patient)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HbsAg_Patient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HbsAg_Patient)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CMV_Patient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CMV_Patient)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transfusion_Patient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transfusion_Patient)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VV_ByPass_Patient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VV_ByPass_Patient)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Antifib_Lytics_Patient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Antifib_Lytics_Patient)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Code_Patient }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

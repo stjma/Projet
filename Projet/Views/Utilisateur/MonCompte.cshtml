@@ -1,0 +1,15 @@
+﻿@model Projet.Models.Utilisateur
+
+@{
+    ViewBag.Title = "Mon Compte";
+    Layout = "~/Views/PageParent.cshtml";
+}
+
+<h2>Mon Compte</h2>
+
+@Ajax.ActionLink("Informations personnelles", "InformationPersonne", new AjaxOptions() { UpdateTargetId = "InfosUtilisateur", InsertionMode = InsertionMode.Replace });
+<div id="InfosUtilisateur"  class="container">
+</div>
+@Ajax.ActionLink("Changer de mot de passe", "ModificationMdp", new AjaxOptions() { UpdateTargetId = "ChangerMdp", InsertionMode = InsertionMode.Replace }); 
+
+<div id="ChangerMdp"></div>
